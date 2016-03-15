@@ -1,33 +1,30 @@
 /*
  * processing.c
  *
- *  Created on: 29.02.2016.
- *      Author: Dejan Bokan (dejan.bokan@rt-rk.com)
+ *  Created on: 15.03.2016.
+ *      Author: student
  */
 
 #include "processing.h"
 
 void downsample(Int16 *input, Int16 *output, int M, int N)
 {
-	/* your code here... */
+	int i;
+	for (i = 0; i < N / M; i++) {
+		output[i] = input[i*M];
+	}
 }
 
-void decimate(Int16 *input, Int16 *output, int M, int N)
-{
-	/* your code here... */
-}
 
 void upsample(Int16 *input, Int16 *output, int L, int N)
 {
-	/* your code here... */
-}
+	int i, j;
 
-void interpolate(Int16 *input, Int16 *output, int L, int N)
-{
-	/* your code here... */
-}
+	for (i = 0; i < N; i++) {
+		output[i * L] = input[i];
 
-void resample(Int16 *input, Int16 *output, int L, int M, int N)
-{
-	/* your code here... */
+		for (j = 0; j < L - 1; j++) {
+			output[i * L + j + 1] = 0;
+		}
+	}
 }

@@ -10,8 +10,9 @@
 
 #include "tistdtypes.h"
 
-#define N_COEFF 21
-extern Int16 lp_filter[N_COEFF];
+#define N_COEFF 19
+extern Int16 H0[N_COEFF];
+extern Int16 H1[N_COEFF];
 
 #endif /* FILTER_COEFF_H_ */
 

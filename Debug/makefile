@@ -4,13 +4,16 @@
 
 SHELL = cmd.exe
 
-CG_TOOL_ROOT := C:/ti6/ccsv6/tools/compiler/c5500_4.4.1
+CG_TOOL_ROOT := C:/ti/ccsv6/tools/compiler/c5500_4.4.1
 
 ORDERED_OBJS += \
+"./aic3204.obj" \
+"./aic3204_init.obj" \
+"./ezdsp5535_aic3204_dma.obj" \
 "./filter_coeff.obj" \
+"./fir.obj" \
 "./main.obj" \
 "./processing.obj" \
-"./signal.obj" \
 "../lnkx.cmd" \
 "../lib/ezdsp5535bsl.lib" \
 "../c55xx_csl/lib/cslVC5505.lib" \
@@ -126,40 +129,40 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-Zadatak1.out \
+FilterBank.out \
 
 EXE_OUTPUTS__QUOTED += \
-"Zadatak1.out" \
+"FilterBank.out" \
 
 BIN_OUTPUTS += \
-Zadatak1.hex \
+FilterBank.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"Zadatak1.hex" \
+"FilterBank.hex" \
 
 
 # All Target
-all: Zadatak1.out
+all: FilterBank.out
 
 # Tool invocations
-Zadatak1.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
+FilterBank.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: C5500 Linker'
-	"C:/ti6/ccsv6/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --diag_warning=225 --ptrdiff_size=16 -z -m"Zadatak1.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti6/ccsv6/tools/compiler/c5500_4.4.1/lib" -i"C:/ti6/ccsv6/tools/compiler/c5500_4.4.1/include" -i"C:/Users/dbokan/Desktop/Vezba 1/c55xx_csl/lib" -i"C:/Users/dbokan/Desktop/Vezba 1/lib" --reread_libs --warn_sections --xml_link_info="vezba-ezdsp_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "Zadatak1.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv6/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --diag_warning=225 --ptrdiff_size=16 -z -m"FilterBank.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccsv6/tools/compiler/c5500_4.4.1/lib" -i"C:/ti/ccsv6/tools/compiler/c5500_4.4.1/include" -i"F:/RA117-2013/DSP2/FilterBank/c55xx_csl/lib" -i"F:/RA117-2013/DSP2/FilterBank/lib" --reread_libs --warn_sections --xml_link_info="vezba-ezdsp_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "FilterBank.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-Zadatak1.hex: $(EXE_OUTPUTS)
+FilterBank.hex: $(EXE_OUTPUTS)
 	@echo 'Invoking: C5500 Hex Utility'
-	"C:/ti6/ccsv6/tools/compiler/c5500_4.4.1/bin/hex55"  -o "Zadatak1.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccsv6/tools/compiler/c5500_4.4.1/bin/hex55"  -o "FilterBank.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "filter_coeff.pp" "main.pp" "processing.pp" "signal.pp" 
-	-$(RM) "filter_coeff.obj" "main.obj" "processing.obj" "signal.obj" 
+	-$(RM) "aic3204.pp" "aic3204_init.pp" "ezdsp5535_aic3204_dma.pp" "filter_coeff.pp" "fir.pp" "main.pp" "processing.pp" 
+	-$(RM) "aic3204.obj" "aic3204_init.obj" "ezdsp5535_aic3204_dma.obj" "filter_coeff.obj" "fir.obj" "main.obj" "processing.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
